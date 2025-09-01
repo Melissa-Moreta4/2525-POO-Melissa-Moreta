@@ -46,5 +46,23 @@
         "nombre": "Espejo",
         "cantidad": 12,
         "precio": 75.0
+    },
+    {
+        "id": "0031",
+        "nombre": "Esmalte de unas",
+        "cantidad": 55,
+        "precio": 1.5
+    },
+    {
+        "id": "0032",
+        "nombre": "Falda",
+        "cantidad": 15,
+        "precio": 20.0
+    },
+    {
+        "id": "0033",
+        "nombre": "Gorra",
+        "cantidad": 30,
+        "precio": 5.0
     }
 ]

@@ -48,7 +48,7 @@ class Inventario:
             print(f"Error al leer archivo: {e}")
 
     def guardar_en_archivo(self):
-        """Guarda inventario en archivo JSON"""
+        """Guarda el inventario en archivo JSON"""
         try:
             data = [p.to_dict() for p in self.productos.values()]
             with open(self.archivo, "w") as f:
