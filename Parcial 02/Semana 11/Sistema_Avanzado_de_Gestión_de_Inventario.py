@@ -1,5 +1,6 @@
 import os
-                                    # Clase Producto
+import json
+                           #Tarea: Sistema Avanzado de Gestión de Inventario
 class Producto:
     def __init__(self, id_producto, nombre, cantidad, precio):
         self.id_producto = id_producto
@@ -10,55 +11,51 @@ class Producto:
     def __str__(self):
         return f"ID: {self.id_producto} | Nombre: {self.nombre} | Cantidad: {self.cantidad} | Precio: ${self.precio:.2f}"
 
-    def to_line(self):
-        """Convierte el producto a una línea de texto para guardar en archivo."""
-        return f"{self.id_producto},{self.nombre},{self.cantidad},{self.precio}\n"
+    def to_dict(self):
+        """Convierte el producto a diccionario para guardar en JSON"""
+        return {
+            "id": self.id_producto,
+            "nombre": self.nombre,
+            "cantidad": self.cantidad,
+            "precio": self.precio
+        }
 
-    def from_line(line):
-        """Crea un objeto Producto desde una línea de archivo."""
-        try:
-            id_producto, nombre, cantidad, precio = line.strip().split(",")
-            return Producto(id_producto, nombre, int(cantidad), float(precio))
-        except ValueError:
-            return None
+    def from_dict(data):
+        """Crea un objeto Producto desde un diccionario"""
+        return Producto(data["id"], data["nombre"], data["cantidad"], data["precio"])
 
-# Clase Inventario con archivo y diccionario
 class Inventario:
-    def __init__(self, archivo="Inventario.JSON"):
+    def __init__(self, archivo="inventario.json"):
         self.archivo = archivo
         self.productos = {}  # Diccionario {id: Producto}
         self.cargar_desde_archivo()
 
     def cargar_desde_archivo(self):
-        """Carga inventario desde el archivo."""
+        """Carga inventario desde archivo JSON"""
         if not os.path.exists(self.archivo):
             print("Archivo de inventario no encontrado. Se creará uno nuevo al guardar.")
             return
         try:
             with open(self.archivo, "r") as f:
-                for line in f:
-                    producto = Producto.from_line(line)
-                    if producto:
-                        self.productos[producto.id_producto] = producto
-            print("Inventario cargado correctamente desde archivo.")
-        except FileNotFoundError:
-            print("No se encontró el archivo de inventario.")
-        except PermissionError:
-            print("No tienes permisos para leer el archivo.")
+                data = json.load(f)
+                for item in data:
+                    producto = Producto.from_dict(item)
+                    self.productos[producto.id_producto] = producto
+            print("Inventario cargado correctamente desde JSON.")
+        except json.JSONDecodeError:
+            print("Error: El archivo JSON está corrupto o vacío.")
         except Exception as e:
-            print(f"Error inesperado al leer archivo: {e}")
+            print(f"Error al leer archivo: {e}")
 
     def guardar_en_archivo(self):
-        """Guarda el inventario en el archivo."""
+        """Guarda inventario en archivo JSON"""
         try:
+            data = [p.to_dict() for p in self.productos.values()]
             with open(self.archivo, "w") as f:
-                for producto in self.productos.values():
-                    f.write(producto.to_line())
-            print("Inventario guardado en archivo.")
-        except PermissionError:
-            print("No tienes permisos para escribir en el archivo.")
+                json.dump(data, f, indent=4)
+            print("Inventario guardado en archivo JSON.")
         except Exception as e:
-            print(f"Error inesperado al escribir archivo: {e}")
+            print(f"Error al guardar archivo: {e}")
 
     def añadir_producto(self, producto):
         if producto.id_producto in self.productos:
@@ -169,6 +166,5 @@ def menu():
         else:
             print("Opción no válida. Intente de nuevo.")
 
-# Ejecutar el menú
 if __name__ == "__main__":
     menu()

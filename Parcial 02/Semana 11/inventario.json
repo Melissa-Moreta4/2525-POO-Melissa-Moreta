@@ -1,0 +1,50 @@
+[
+    {
+        "id": "0023",
+        "nombre": "Almohada",
+        "cantidad": 35,
+        "precio": 12.0
+    },
+    {
+        "id": "0024",
+        "nombre": "Anillo",
+        "cantidad": 48,
+        "precio": 220.0
+    },
+    {
+        "id": "0025",
+        "nombre": "Broche para el cabello",
+        "cantidad": 260,
+        "precio": 1.0
+    },
+    {
+        "id": "0026",
+        "nombre": "Bolsos",
+        "cantidad": 20,
+        "precio": 15.0
+    },
+    {
+        "id": "0027",
+        "nombre": "Cadena",
+        "cantidad": 25,
+        "precio": 35.0
+    },
+    {
+        "id": "0028",
+        "nombre": "Corset",
+        "cantidad": 50,
+        "precio": 33.0
+    },
+    {
+        "id": "0029",
+        "nombre": "Diadema para el cabello",
+        "cantidad": 130,
+        "precio": 3.0
+    },
+    {
+        "id": "0030",
+        "nombre": "Espejo",
+        "cantidad": 12,
+        "precio": 75.0
+    }
+]
