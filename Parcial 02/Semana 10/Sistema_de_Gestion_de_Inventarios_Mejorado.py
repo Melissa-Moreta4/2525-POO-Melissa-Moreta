@@ -24,7 +24,7 @@ class Producto:
 
 # Clase Inventario con archivo y diccionario
 class Inventario:
-    def __init__(self, archivo="Inventario.JSON"):
+    def __init__(self, archivo="Inventario.txt"):
         self.archivo = archivo
         self.productos = {}  # Diccionario {id: Producto}
         self.cargar_desde_archivo()
